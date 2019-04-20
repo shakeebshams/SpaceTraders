@@ -10,7 +10,7 @@ class Scorpion():
     def __init__(self):
         self.name = ""
         self.value = 100
-        self.shipClass = "Scorpion"
+        self.shipClass = "GNAT"
         self.description = "The Scorpion is an entry-level ship, suitable for novice traders."
         self.range = 1000
         self.maxRange = 1000

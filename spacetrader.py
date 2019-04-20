@@ -2,16 +2,21 @@
 
 from planets import Planet
 from ships import *
+import numbers
 
 
 class Player:
 
-    def __init__(self, name, age, galaxy):
+    def __init__(self, name, age, galaxy, pilot, fighter, trader, engineer):
         self.name = name
         self.age = age
-        self.wallet = 100
+        self.wallet = 1000
         self.ship = Scorpion()
         self.location = galaxy.earth
+        self.pilotPoints = pilot
+        self.fighterPoints = fighter
+        self.traderPoints = trader
+        self.engineerPoints = engineer
 
 
     def viewWallet(self):
@@ -108,11 +113,82 @@ def main():
 
     playerName = input("What is your name?\n")
     playerAge = input("How old are you?\n")
+    print("You have a max of 16 skill points, please choose wisely\n")
+    pilot = 5
+    fighter = 3
+    trader = 5
+    engineer = 3
+    correct = False
+    total = 16
+    while not correct:
+        pilotVal = input("please enter how many points you would like for pilot, no more than 16!\n")
 
-    player = Player(playerName, playerAge, galaxy)
+        try:
+            pilot = int(pilotVal)
+            if 16 >= pilot >= 0:
+                correct = False
+                total = total - pilot
+                break
+            else:
+                print("Sorry, input not valid, please try again\n")
+        except ValueError:
+            print("Sorry, please enter an integer again\n")
+
+    correct = False
+    while not correct:
+        fighterVal = input("please enter how many points you would like for fighter, no more than {}!\n".format(total))
+
+        try:
+            fighter = int(fighterVal)
+            if 0 <= fighter <= total:
+                correct = False
+                total = total - fighter
+                break
+            else:
+                print("Sorry, input not valid, please try again\n")
+        except ValueError:
+            print("Sorry, please enter an integer again\n")
+
+    correct = False
+    while not correct:
+        traderVal = input("please enter how many points you would like for trader, no more than {}!\n".format(total))
+
+        try:
+            trader = int(traderVal)
+            if 0 <= trader <= total:
+                correct = False
+                total = total - trader
+                break
+            else:
+                print("Sorry, input not valid, please try again\n")
+        except ValueError:
+            print("Sorry, please enter an integer again\n")
+
+    correct = False
+    while not correct:
+        engineerVal = input("please enter how many points you would like for engineer, no more than {}!\n".format(total))
+
+        try:
+            engineer = int(engineerVal)
+            if 0 <= engineer <= total:
+                correct = False
+                total = total - engineer
+                break
+            else:
+                print("Sorry, input not valid, please try again\n")
+        except ValueError:
+            print("Sorry, please enter an integer again\n")
+
+
+    player = Player(playerName, playerAge, galaxy, pilot, fighter, trader, engineer)
+
 
     print()
     print("Hello {}. You start with {} credits and no cargo. You have been assigned a {}-class ship.".format(player.name, player.wallet, player.ship.shipClass))
+    print("Your pilot has {} points".format(player.pilotPoints))
+    print("Your fighter has {} points".format(player.fighterPoints))
+    print("Your trader has {} points".format(player.traderPoints))
+    print("Your engineer has {} points".format(player.engineerPoints))
     print()
     print("You are on {}.".format(player.location.name))
 
@@ -120,7 +196,7 @@ def main():
 
     while play:
 
-        topChoice = input("What would you like to do? Enter 12 for help. > ")
+        topChoice = input("What would you like to do? Enter 12 for help. > \n")
 
         try:
             if int(topChoice) == 12:
