@@ -91,6 +91,9 @@ class Galaxy():
         self.eden_prime = Planet("Eden Prime")
         self.titan = Planet("Titan")
         self.vulcan = Planet("Vulcan")
+        self.mars = Planet("Mars")
+        self.venus = Planet("Venus")
+        self.yeet = Planet("Yeet")
 
 def printOptions():
     print("\nYou can:")

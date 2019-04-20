@@ -11,9 +11,11 @@ class Planet:
     planetsList = []
     
     def __init__(self, name):
+        techArray = ["Pre-Agriculture", "Agriculture", "Medieval", "Renaissance", "Early Industrial", "Industrial", "Post-Industrial", "Hi-Tech"]
+        resourceArray = ["NOSPECIALRESOURCES", "MINERALRICH", "MINERALPOOR", "DESERT", "LOTSOFWATER", "RICHSOIL", "POORSOIL", "RICHFAUNA", "LIFELESS", "WEIRDMUSHROOMS", "LOTSOFHERBS", "ARTISTIC", "WARLIKE"]
         self.name = name
         self.supply = {'Spice': random.randint(0, 1000),
-                       'Element Zero': random.randint(0, 1000),
+                       'Element Zero': random.randint(0,1000),
                        'Iron': random.randint(50, 2000),
                        'Gold': random.randint(10, 100),
                        'Helium': random.randint(200, 3000),
@@ -29,6 +31,12 @@ class Planet:
                        'Fuel': round(random.uniform(0.1, 2), 2)}
         
         self.economy = random.randint(10000, 20000)
+        techVal = random.randint(0, 7)
+        resourceVal = random.randint(0, 13)
+        self.tech = techArray[techVal]
+        self.resource = resourceArray[resourceVal]
+        coor = (0, random.randint(0, 999))
+        self.coordinates =coor
         
         Planet.planetsList.append(name)
         
