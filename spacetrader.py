@@ -113,6 +113,12 @@ def printOptions():
 def main():
 
     galaxy = Galaxy()
+    print(r"  _________                           ___________                  .___            ")
+    print(r" /   _____/__________    ____  ____   \__    ___/___________     __| _/___________")
+    print(r" \_____  \\____ \__  \ _/ ___\/ __ \    |    |  \_  __ \__  \   / __ |/ __ \_  __ \ ")
+    print(r" /        \  |_> > __ \\  \__\  ___/    |    |   |  | \// __ \_/ /_/ \  ___/|  | \/")
+    print(r"/_______  /   __(____  /\___  >___  >   |____|   |__|  (____  /\____ |\___  >__|   ")
+    print(r"        \/|__|       \/     \/    \/                        \/      \/    \/      ")
 
     playerName = input("What is your name?\n")
     playerAge = input("How old are you?\n")
@@ -181,7 +187,6 @@ def main():
                 print("Sorry, input not valid, please try again\n")
         except ValueError:
             print("Sorry, please enter an integer again\n")
-
 
     player = Player(playerName, playerAge, galaxy, pilot, fighter, trader, engineer)
 
