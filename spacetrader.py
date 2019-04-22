@@ -30,9 +30,11 @@ class Player:
 
     def travel(self, distance):
         if distance > self.ship.range:
-            print("That's out of range!")
+            print("That's out of range! Your range is only {}".format(self.ship.range))
+            return False
         else:
             self.ship.range = self.ship.range - distance
+            return True
 
     def buyResource(self):
         resource = input("What would you like to buy?\n")
@@ -79,6 +81,8 @@ class Player:
     def inspectPlanetPrices(self):
         for key in self.location.prices:
             print("{}: {}".format(key, self.location.prices[key]))
+    def viewLocation(self):
+        return self.location
 
 
 class Galaxy():
@@ -201,20 +205,32 @@ def main():
     print("You are on {}.\n".format(player.location.name))
 
 
+    galaxyNames = []
+    galaxyNames.append(galaxy.aarakis.name)
+    galaxyNames.append(galaxy.alpha_centauri.name)
+    galaxyNames.append(galaxy.coruscant.name)
+    galaxyNames.append(galaxy.earth.name)
+    galaxyNames.append(galaxy.eden_prime.name)
+    galaxyNames.append(galaxy.mars.name)
+    galaxyNames.append(galaxy.titan.name)
+    galaxyNames.append(galaxy.venus.name)
+    galaxyNames.append(galaxy.vulcan.name)
+    galaxyNames.append(galaxy.yeet.name)
+
     galaxyList = []
-    galaxyList.append(galaxy.aarakis.name)
-    galaxyList.append(galaxy.alpha_centauri.name)
-    galaxyList.append(galaxy.coruscant.name)
-    galaxyList.append(galaxy.earth.name)
-    galaxyList.append(galaxy.eden_prime.name)
-    galaxyList.append(galaxy.mars.name)
-    galaxyList.append(galaxy.titan.name)
-    galaxyList.append(galaxy.venus.name)
-    galaxyList.append(galaxy.vulcan.name)
-    galaxyList.append(galaxy.yeet.name)
+    galaxyList.append(galaxy.aarakis)
+    galaxyList.append(galaxy.alpha_centauri)
+    galaxyList.append(galaxy.coruscant)
+    galaxyList.append(galaxy.earth)
+    galaxyList.append(galaxy.eden_prime)
+    galaxyList.append(galaxy.mars)
+    galaxyList.append(galaxy.titan)
+    galaxyList.append(galaxy.venus)
+    galaxyList.append(galaxy.vulcan)
+    galaxyList.append(galaxy.yeet)
 
     print("The planets are: ")
-    print(*galaxyList, sep = ", ")
+    print(*galaxyNames, sep = ", ")
     print()
     print()
     print()
@@ -237,12 +253,50 @@ def main():
                 print()
 
             elif int(topChoice) == 2:
-
-                print()
+                currlocation = player.viewLocation().coordinates[1]
+                for x in galaxyList:
+                    if (x.name == player.viewLocation().name):
+                        continue
+                    else:
+                        planetLocation = x.coordinates[1]
+                        distanceVal = abs(currlocation - planetLocation)
+                        print("Distance to {} is {}".format(x.name, distanceVal))
 
             elif int(topChoice) == 3:
 
-                print()
+                realGalaxyList = []
+                for x in galaxyList:
+                    if (x.name == player.viewLocation().name):
+                        continue
+                    else:
+                        realGalaxyList.append(x)
+                counter = 1
+                for x in realGalaxyList:
+                    print("{}. {}".format(counter, x.name))
+                    counter+=1
+                choice = player.viewLocation()
+                correct = False
+                while not correct:
+                    num = input("Please select the number of the planet you'd like to travel to: \n")
+                    try:
+                        realnum = int(num)
+                        if 1 <= realnum <= len(realGalaxyList):
+                            choice = realGalaxyList[realnum - 1]
+                            #print("NEXT LOCATION IS {}".format(choice.name))
+                        else:
+                            print("Sorry, input not valid, please try again\n")
+                    except ValueError:
+                        print("Sorry, please enter an integer again\n")
+                    currlocation = player.location.coordinates[1]
+                    planetLocation = x.coordinates[1]
+                    distanceVal = abs(currlocation - planetLocation)
+                    correct = player.travel(distanceVal)
+
+                print("Your remaining range is {}".format(player.ship.range))
+                player.location = choice
+
+                print("Your location is now {}".format(player.viewLocation().name))
+
 
             elif int(topChoice) == 4:
                 player.ship.viewCargo()
@@ -266,11 +320,27 @@ def main():
                 print()
 
             elif int(topChoice) == 9:
-
+                player.buyResource()
                 print()
 
             elif int(topChoice) == 10:
-
+                sellItem = input("What would you like to sell?")
+                if (sellItem not in player.ship.supply):
+                    sellItem = input("That item is not a valid choice, please try again.")
+                amountOfItem = int(input("How much of {} would you like to sell?".format(sellItem)))
+                if (amountOfItem > player.ship.supply[sellItem]):
+                    amountOfItem = int(input("Sorry, you only have a max {} {} on your ship, please try again with a lower amount".format(player.ship.supply[sellItem], sellItem)))
+                if (amountOfItem > player.ship.supply[sellItem]):
+                    amountOfItem = int(input("Sorry, you only have a max {} {} on your ship, please try again with a lower amount".format(player.ship.supply[sellItem], sellItem)))
+                if (amountOfItem > player.ship.supply[sellItem]):
+                    amountOfItem = int(input("Sorry, you only have a max {} {} on your ship, please try again with a lower amount".format(player.ship.supply[sellItem], sellItem)))
+                priceOnPlanet = player.location.prices[sellItem]
+                revenue = priceOnPlanet * amountOfItem
+                player.location.supply[sellItem] += amountOfItem
+                player.ship.supply[sellItem] -= amountOfItem
+                player.ship.capacity += amountOfItem
+                player.wallet += revenue
+                print("You have successfully sold {} {} at a revenue of {} to planet {}".format(amountOfItem, sellItem, revenue, player.location.name))
                 print()
 
             else:

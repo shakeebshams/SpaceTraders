@@ -14,11 +14,12 @@ class Scorpion():
         self.description = "The Scorpion is an entry-level ship, suitable for novice traders."
         self.range = 1000
         self.maxRange = 1000
-        self.supply = {'Spice': 0,
-                       'Element Zero': 0,
-                       'Iron': 0,
-                       'Gold': 0,
-                       'Helium': 0}
+        self.supply = {'Water': 0,
+                       'Furs': 0,
+                       'Food': 0,
+                       'Ore': 0,
+                       'Firearms': 0,
+                       'Narcotics': 0}
         self.capacity = 200
         self.load = 0
 
