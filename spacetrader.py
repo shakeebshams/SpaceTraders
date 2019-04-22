@@ -3,6 +3,7 @@
 from planets import Planet
 from ships import *
 import numbers
+import random
 
 
 class Player:
@@ -291,6 +292,12 @@ def main():
                     planetLocation = x.coordinates[1]
                     distanceVal = abs(currlocation - planetLocation)
                     correct = player.travel(distanceVal)
+                x = random.randint(0, 10)
+                if x < 5:
+                    y = random.randint(1, 100)
+                    print("You found money in your toilet, you gain {} credits!".format(y))
+                    player.wallet += y
+
 
                 print("Your remaining range is {}".format(player.ship.range))
                 player.location = choice
