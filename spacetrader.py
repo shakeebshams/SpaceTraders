@@ -198,7 +198,26 @@ def main():
     print("Your trader has {} points".format(player.traderPoints))
     print("Your engineer has {} points".format(player.engineerPoints))
     print()
-    print("You are on {}.".format(player.location.name))
+    print("You are on {}.\n".format(player.location.name))
+
+
+    galaxyList = []
+    galaxyList.append(galaxy.aarakis.name)
+    galaxyList.append(galaxy.alpha_centauri.name)
+    galaxyList.append(galaxy.coruscant.name)
+    galaxyList.append(galaxy.earth.name)
+    galaxyList.append(galaxy.eden_prime.name)
+    galaxyList.append(galaxy.mars.name)
+    galaxyList.append(galaxy.titan.name)
+    galaxyList.append(galaxy.venus.name)
+    galaxyList.append(galaxy.vulcan.name)
+    galaxyList.append(galaxy.yeet.name)
+
+    print("The planets are: ")
+    print(*galaxyList, sep = ", ")
+    print()
+    print()
+    print()
 
     play = True
 

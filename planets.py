@@ -32,7 +32,7 @@ class Planet:
         
         self.economy = random.randint(10000, 20000)
         techVal = random.randint(0, 7)
-        resourceVal = random.randint(0, 13)
+        resourceVal = random.randint(0, 12)
         self.tech = techArray[techVal]
         self.resource = resourceArray[resourceVal]
         coor = (0, random.randint(0, 999))
